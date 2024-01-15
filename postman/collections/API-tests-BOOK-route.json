@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "ea454c21-f0f9-436e-9758-8c9fcebc5cac",
+		"name": "API-tests-BOOK-route",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "27563178-ea454c21-f0f9-436e-9758-8c9fcebc5cac"
+	},
+	"item": [
+		{
+			"name": "Test 1: Dobavljanje liste svih dostupnih knjiga",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e3262d4-75b2-4afe-b76c-eff6cbae61da",
+						"exec": [
+							"\r",
+							"pm.test(\"Validirati statusni kod: 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validirati format JSON odgovora\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validirati da odgovor sadrži očekivani broj knjiga\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData).to.be.an('array').that.has.lengthOf(45);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validirati prisutnost ključnih atributa za svaku knjigu (bookId, title, author)\", function () {\r",
+							"    pm.response.json().forEach(function(book) {\r",
+							"        pm.expect(book).to.have.property('bookId');\r",
+							"        pm.expect(book).to.have.property('title');\r",
+							"        pm.expect(book).to.have.property('author');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "af050617-7341-4e88-9bff-170f6b098962",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://bookcart.azurewebsites.net/api/Book/",
+					"protocol": "https",
+					"host": [
+						"bookcart",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"Book",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 2: Dobavljanje podataka o specifičnoj knjizi po bookId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ddf4c16-50ae-4211-b603-caba16b38955",
+						"exec": [
+							"pm.test(\"Validirati statusni kod: 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validirati format JSON odgovora\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Postojanje atributa author, category, price i coverFileName\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('author');\r",
+							"    pm.expect(jsonData).to.have.property('category');\r",
+							"    pm.expect(jsonData).to.have.property('price');\r",
+							"    pm.expect(jsonData).to.have.property('coverFileName');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Provera informacija o knjizi\", function () {\r",
+							"    var expectedInfo = {\r",
+							"        \"bookId\": 2,\r",
+							"        \"title\": \"HP2\",\r",
+							"        \"author\": \"JKR\",\r",
+							"        \"category\": \"Mystery\",\r",
+							"        \"price\": 235.00,\r",
+							"        \"coverFileName\":\"9d8f4978-0ef8-42d0-873a-4eb583439237HP2.jpg\"\r",
+							"    };\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql(expectedInfo);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "cc557630-da5f-4503-b0c8-b48cafb46df3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://bookcart.azurewebsites.net/api/Book/2",
+					"protocol": "https",
+					"host": [
+						"bookcart",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"Book",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 3: Dobavljanje svih dostupnih kategorija knjiga",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7726573-e58b-4557-a759-60c954f2fe46",
+						"exec": [
+							"pm.test(\"Validirati statusni kod: 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validirati format JSON odgovora\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validirati da odgovor sadrži očekivani broj kategorija\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData).to.be.an('array').that.has.lengthOf(5);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validirati postojanje atributa categoryId i categoryName\", function () {\r",
+							"    pm.response.json().forEach(function(book) {\r",
+							"        pm.expect(book).to.have.property('categoryId');\r",
+							"        pm.expect(book).to.have.property('categoryName');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ae85eefb-bb07-4c3a-8ae1-eff5adcfd22e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://bookcart.azurewebsites.net/api/Book/GetCategoriesList",
+					"protocol": "https",
+					"host": [
+						"bookcart",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"Book",
+						"GetCategoriesList"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
