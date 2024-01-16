@@ -9,6 +9,9 @@ id = e8bc6fa9-baa0-4ab5-800e-8411e0796de1
 
 [config.relations.collections]
 rootDirectory = postman/collections
+files[] = {"id":"27757863-9a10687f-f087-4837-a7e4-d5dbe0bc997d","path":"API tests PETSTORE.json","metaData":{}}
+files[] = {"id":"27757863-f5a296cb-aa60-45bc-9bf0-c27286374512","path":"API tests ShoppingCart.json","metaData":{}}
+files[] = {"id":"27757863-c015f9b2-d080-45a4-b41a-5eea11be604d","path":"API tests USER route.json","metaData":{}}
 files[] = {"id":"27563178-ea454c21-f0f9-436e-9758-8c9fcebc5cac","path":"API-tests-BOOK-route.json","metaData":{}}
 
 [config.relations.collections.metaData]
