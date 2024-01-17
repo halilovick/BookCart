@@ -88,7 +88,7 @@
 							"    pm.expect(jsonData).to.have.property('coverFileName');\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Provera informacija o knjizi\", function () {\r",
+							"pm.test(\"Provjera informacija o knjizi\", function () {\r",
 							"    var expectedInfo = {\r",
 							"        \"bookId\": 2,\r",
 							"        \"title\": \"HP2\",\r",
